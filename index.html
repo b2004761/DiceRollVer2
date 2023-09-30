@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play Dice</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="dice">
+        <h2 class="dice-title">Dice Game</h2>
+        <div class="row">
+            <div class="col-6 player">
+                <h2><span>&#x1F64B;</span> Player 1</h2>
+                <img src="img/Dice-1.png" alt="" class="img-dice" id="player1Dice">
+            </div>
+            <div class="col-6 player">
+                <h2><span>&#x1F64B;</span> Player 2</h2>
+                <img src="img/Dice-1.png" alt="" class="img-dice" id="player2Dice">
+            </div>
+        </div>
+        <h1 class="result"></h1>
+        <button id="dice-btn" onclick="diceGame()">Roll The Dice</button>
+    </div>
+
+    <!-- Add audio elements for win and draw -->
+    <audio id="winSound">
+        <source src="win.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <audio id="drawSound">
+        <source src="draw.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!--JS-->
+    <script>
+        const diceButton = document.getElementById('dice-btn');
+        const player1Dice = document.getElementById('player1Dice');
+        const player2Dice = document.getElementById('player2Dice');
+        const resultText = document.querySelector('.result');
+
+        function diceGame() {
+            //DICE 1
+            var randomDice = Math.floor((Math.random() * 6) + 1);
+            var diceLocation = "img/Dice-" + randomDice + ".png";
+            player1Dice.setAttribute("src", diceLocation);
+
+            //DICE 2
+            var randomDice2 = Math.floor((Math.random() * 6) + 1);
+            var diceLocation2 = "img/Dice-" + randomDice2 + ".png";
+            player2Dice.setAttribute("src", diceLocation2);
+
+            if (randomDice > randomDice2) {
+                resultText.innerHTML = "Player 1 Wins! 🎉";
+                playWinSound();
+            }
+            else if (randomDice < randomDice2) {
+                resultText.innerHTML = "Player 2 Wins! 🎉";
+                playWinSound();
+            }
+            else {
+                resultText.innerHTML = "It's a Draw! 🤝";
+                playDrawSound();
+            }
+            diceButton.innerHTML = "Roll Again";
+        }
+
+        // Play win sound
+        function playWinSound() {
+            const winSound = document.getElementById('winSound');
+            winSound.play();
+        }
+
+        // Play draw sound
+        function playDrawSound() {
+            const drawSound = document.getElementById('drawSound');
+            drawSound.play();
+        }
+    </script>
+
+    <!--Footer-->
+    <footer>
+        <p>&copy; B2004761</p>
+    </footer>
+</body>
+</html>
